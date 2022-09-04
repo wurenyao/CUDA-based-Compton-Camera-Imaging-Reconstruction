@@ -13,56 +13,58 @@
 3. "GPU_parallel/" hardware requires a graphics card with computing power higher than 6.0. You can refer to "https://developer.nvidia.com/zh-cn/cuda-gpus#compute" to see if it meets the computing power requirements.<br>
 
 ## Program use:
-### "CPU_serial/"
+### CPU_serial/
+#### usage
 There is only one .cc script in the "CPU_serial/" folder, and SBP_MLEM.cc is the reconstruction program;<br>
 The top of the SBP_MLEM.cc program sets the parameters for the rebuild:<br>
+```C
+#define Electron_Mass 510.99       // keV
+#define Pi 3.14159              // circumference
+#define X_POS 0
+#define Y_POS 1
+#define Z_POS 2
+//**********************************//
+#define Input_File "True_CZT478.txt"    // input file
+#define dtheta 0.03             //rad
+#define Gamma_Energy 478        // keV (the energy of incident photon)
+#define Denergy 3               // keV (the energy range for recorded events)
+#define X_Bins 100              // bins
+#define Y_Bins 100              // bins
+#define Z_Bins 100              // bins
+#define xmin -100               // mm
+#define xmax 100                // mm
+#define ymin -100               // mm
+#define ymax 100                // mm
+#define zmin -100               // mm
+#define zmax 100                // mm
+#define Distance_Filter 10       // mm  (0 means no Distance filter)
+//*********************************//
+#define Events_Display 1000
+#define MLEM 40
+#define MLEM_Display 4
+```
+1. Among them, the first five behaviors are constants and can not be changed;  
+2. "Input_File" is the file name of the input file, which needs to be placed in the same folder of the program when using it;  
+3. "dtheta" is the angle broadening of direct back projection, in radians;  
+4. "Gamma_Energy" is the incident photon energy, modified with reference to the detected target photon energy;  
+5. "Denergy" is the allowable spread of incident photon energy, which can be modified according to the energy resolution of the detection device;  
+6. The next nine rows are the reconstructed space parameters, which are the number of bins reconstructed in the X, Y, and Z directions, and the spatial range contained in the reconstructed space in the X, Y, and Z directions. The reconstructed space shown in the example is a three-dimensional cube centered on the origin. In actual use, it can be arbitrarily changed as needed, and 2D imaging is also supported. After changing the Z_Bins value in any direction to 1, the imaging space range can be changed to perform 2D reconstruction;  
+7. "Distance_Filter" is the distance filtering amount, and the filtering target is the distance amount where scattering and absorption occur. Events below Distance_Filter will not be considered for reconstruction;  
+8. "Events_Display" is only used to monitor the progress of reconstruction in the direct back projection stage. The meaning in this example is to send the current reconstruction progress information every 1000 reconstruction events;
+9. "MLEM" is the total number of MLEM iterations, which can be set arbitrarily as needed;
+10. "MLEM_Display" is used to set the output of the reconstruction result after a certain number of iterations. The meaning in this example is to output the reconstruction result every 4 iterations;
+#### supplement
+1. The output of SBP_MLEM.cc is in the form of a matrix, which is written into a .txt file and can be visualized by "ThreeD_compton_image.m";  
+2. The reference input file format of SBP_MLEM.cc is x1 y1 z1 x2 y2 z3 e1 e2; where 1 is a scattering event and 2 is an absorption event;  
+3. The SBP_MLEM.cc program runs in standard C++ mode, compiling + running the executable.
 
-  #define Electron_Mass 510.99       // keV<br>
-  #define Pi 3.14159              // circumference<br>
-  #define X_POS 0<br>
-  #define Y_POS 1<br>
-  #define Z_POS 2<br>
-  "//**********************************//"<br>
-  "#define Input_File "True_CZT478.txt"    // input file"<br>
-  "#define dtheta 0.03             //rad"<br>
-  "#define Gamma_Energy 478        // keV (the energy of incident photon)"<br>
-  "#define Denergy 3               // keV (the energy range for recorded events)"<br>
-  "#define X_Bins 100              // bins"<br>
-  "#define Y_Bins 100              // bins"<br>
-  "#define Z_Bins 100              // bins"<br>
-  "#define xmin -100               // mm"<br>
-  "#define xmax 100                // mm"<br>
-  "#define ymin -100               // mm"<br>
-  "#define ymax 100                // mm"<br>
-  "#define zmin -100               // mm"<br>
-  "#define zmax 100                // mm"<br>
-  "#define Distance_Filter 10       // mm  (0 means no Distance filter)"<br>
-  "//*********************************//"<br>
-  "#define Events_Display 1000"<br>
-  "#define MLEM 40"<br>
-  "#define MLEM_Display 4"<br>
+### GPU_parallel/
+#### usage
+1. There are two folders "include" and "src" and a file "makefile" under the "GPU_parallel/" folder;  
+2. Among them, "include" contains the header files required for the reconstruction program, "src" contains the source files executed by the reconstruction program, and makefile is the compilation command file;  
+3. When using, modify the "src/main_function.cu" file as needed, same as SBP_MLEM.cc, the reconstruction parameters of this program are also located at the top of the program:
 
-其中，前四行为常量，可不做更改；
-"Input_File"为输入文件的文件名，使用时需要放在本程序同一文件夹目录下；
-"dtheta"为直接反投影的角度展宽量，单位为弧度制；
-"Gamma_Energy"为入射光子能量，参考探测的目标光子能量进行修改；
-"Denergy”为允许的入射光子能量展宽量，可根据探测设备能量分辨率进行修改；
-接下来九行为重建空间参数，分别是X，Y，Z方向重建的bin数，以及X，Y，Z方向上重建空间包含的空间范围，实例中展现的重建空间为以原点为中心的三维正方体，
-实际使用中可根据需要任意更改，二维成像同样支持，将任意方向的_Bins值更改为1后对应更改成像空间范围即可进行二维重建；
-"Distance_Filter”为距离筛选量，筛选目标为散射和吸收作用发生位置的距离量，低于Distance_Filter的事件将不被考虑进行重建；
-"Events_Display”仅用于直接反投影阶段监视重建的进度，本实例中的意义为每重建1000事件发送一次当前重建进度信息；
-"MLEM”为MLEM迭代总次数，可根据需要任意设置；
-"MLEM_Display”用于设置迭代一定次数后进行重建结果的输出，本实例中的意义为每迭代4次进行一次重建结果输出；
-------------------------------------------------------------------------------------------
-SBP_MLEM.cc输出结果为矩阵形式，该矩阵被写入.txt文件中，可由ThreeD_compton_image.m进行可视化；
-SBP_MLEM.cc的参考输入文件格式为x1 y1 z1 x2 y2 z3 e1 e2；其中1表示散射事件，2表示吸收事件；
-SBP_MLEM.cc程序运行为标准C++模式，编译+运行可执行文件。
-
-
-2. "GPU_parallel/“
-"GPU_parallel/“文件夹下有两个文件夹"include"和"src"以及一个文件"makefile"
-其中"include"包含有重建程序所需头文件，"src"包含有重建程序执行的源文件，makefile为编译命令文件
-使用时，依据需要修改"src/main_function.cu"文件，同SBP_MLEM.cc，本程序重建参数也位于程序顶部：
+```C
 ------------------------------------------------------------------------------------------
 // *** Input File *** //
 #define Input_File "./True_CZT478.txt" 
@@ -90,15 +92,17 @@ const int Events_Display = 1000;
 const int MLEM_Itr = 40;
 const int MLEM_Display = 4;
 ------------------------------------------------------------------------------------------
+```
+
 由于CPU程序和GPU程序功能完全一致，因此重建参数含义与SBP_MLEM.cc相同，这里仅对两者不一样的地方进行解释：
 "Max_Ava_Video_Me"为计算机可用的最大显存大小，单位为MiB，可在计算机终端输入nvidia-smi指令查看当前计算机可用显存容量大小，使用时最好略小于可用显存大小；
 "Compton_Ang_Filter"为GPU程序添加功能，即选择是否进行散射角度筛选，筛选范围为0-120度；
-------------------------------------------------------------------------------------------
+
 GPU程序的运行方式为：
 1.GPU程序的编译依赖于makefile的命令，makefile需要依据实际情况修改一处参数设置：
-------------------------------------------------------------------------------------------
+
 NVFLAGS = -arch=compute_61 -code=sm_61
-------------------------------------------------------------------------------------------
+
 本实例参考1080 Ti显卡（计算能力 6.1），实际使用时需要设置为："NVFLAGS = -arch=compute_计算能力*10 -code=sm_计算能力*10"；
 2.makefile修改后，在"GPU_parallel/“目录下进行编译，编译命令为"make"；
 3.执行可执行程序。
