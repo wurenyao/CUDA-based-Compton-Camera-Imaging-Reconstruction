@@ -106,4 +106,6 @@ NVFLAGS = -arch=compute_61 -code=sm_61
 3. Execute the executable program.
 The inputs and outputs of the GPU program are the same as SBP_MLEM.cc.
 
-## If you have any questions, please contact Wu Renyao qq:1243511701
+## If you have any questions, please contact Wu Renyao
+qq:   1243511701
+email:wurenyao@nuaa.edu.cn
