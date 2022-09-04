@@ -16,34 +16,32 @@
 ### "CPU_serial/"
 There is only one .cc script in the "CPU_serial/" folder, and SBP_MLEM.cc is the reconstruction program;<br>
 The top of the SBP_MLEM.cc program sets the parameters for the rebuild:<br>
-""" C++
-------------------------------------------------------------------------------------------
-#define Electron_Mass 510.99       // keV
-#define Pi 3.14159              // circumference
-#define X_POS 0
-#define Y_POS 1
-#define Z_POS 2
-//**********************************//
-#define Input_File "True_CZT478.txt"    // input file
-#define dtheta 0.03             //rad
-#define Gamma_Energy 478        // keV (the energy of incident photon)
-#define Denergy 3               // keV (the energy range for recorded events)
-#define X_Bins 100              // bins
-#define Y_Bins 100              // bins
-#define Z_Bins 100              // bins
-#define xmin -100               // mm
-#define xmax 100                // mm
-#define ymin -100               // mm
-#define ymax 100                // mm
-#define zmin -100               // mm
-#define zmax 100                // mm   
-#define Distance_Filter 10       // mm  (0 means no Distance filter)
-//*********************************//
-#define Events_Display 1000
-#define MLEM 40
-#define MLEM_Display 4
-------------------------------------------------------------------------------------------
-"""
+
+  #define Electron_Mass 510.99       // keV<br>
+  #define Pi 3.14159              // circumference<br>
+  #define X_POS 0<br>
+  #define Y_POS 1<br>
+  #define Z_POS 2<br>
+  "//**********************************//"<br>
+  "#define Input_File "True_CZT478.txt"    // input file"<br>
+  "#define dtheta 0.03             //rad"<br>
+  "#define Gamma_Energy 478        // keV (the energy of incident photon)"<br>
+  "#define Denergy 3               // keV (the energy range for recorded events)"<br>
+  "#define X_Bins 100              // bins"<br>
+  "#define Y_Bins 100              // bins"<br>
+  "#define Z_Bins 100              // bins"<br>
+  "#define xmin -100               // mm"<br>
+  "#define xmax 100                // mm"<br>
+  "#define ymin -100               // mm"<br>
+  "#define ymax 100                // mm"<br>
+  "#define zmin -100               // mm"<br>
+  "#define zmax 100                // mm"<br>
+  "#define Distance_Filter 10       // mm  (0 means no Distance filter)"<br>
+  "//*********************************//"<br>
+  "#define Events_Display 1000"<br>
+  "#define MLEM 40"<br>
+  "#define MLEM_Display 4"<br>
+
 其中，前四行为常量，可不做更改；
 "Input_File"为输入文件的文件名，使用时需要放在本程序同一文件夹目录下；
 "dtheta"为直接反投影的角度展宽量，单位为弧度制；
