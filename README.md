@@ -1,21 +1,22 @@
 # Compton-Camera-Imaging-Reconstruction
-摘要：
-当前文件夹下包含两个文件夹“CPU_serial/“和“GPU_parallel/“，
-以及康普顿重建数据参考输入文件“True_CZT478.txt“和重建结果可视化脚本“ThreeD_compton_image.m“
-“CPU_serial/“和“GPU_parallel/“包含的程序功能同为康普顿相机图像重建，重建结果经测试没有差异。
-“CPU_serial/“包含程序为CPU上串行执行的康普顿相机重建程序，包含角度展宽的预先反投影以及MLEM迭代；
-“GPU_parallel/“包含程序为GPU上并行执行的康普顿相机重建程序，角度展宽的预先反投影以及MLEM迭代过程都将并行执行。
+## Abstract：
+1. The current path contains two folders "CPU_serial/" and "GPU_parallel/";<br>
+2. The Compton reconstruction data refer to the input file "True_CZT478.txt" and the reconstruction result visualization script "ThreeD_compton_image.m";<br>
+3. The program functions included in "CPU_serial/" and "GPU_parallel/" are the same as Compton camera image reconstruction, and there is no difference in the reconstruction results after testing.<br>
+4. "CPU_serial/" contains the program for the serial execution of the Compton camera reconstruction program on the CPU, including resolution-corrected pre-backprojection and LM-MLEM iterations;<br>
+5. "GPU_parallel/" contains the program for the Compton camera reconstruction program to be executed in parallel on the GPU. The pre-backprojection for resolution correction and the MLEM iteration process will all be executed in parallel.<br>
 
-硬件及环境要求：
-"CPU_serial/“仅依赖于标准C++库及编译器，windows端可下载mingw "https://sourceforge.net/projects/mingw/"，并配置环境变量；
-"GPU_parallel/“依赖于CUDA及相关环境，windows端可首先安装MS 2022社区版 "https://visualstudio.microsoft.com/zh-hans/"，接着更新显卡驱动并安装
-合适版本的CUDA Toolkit "https://developer.nvidia.com/cuda-downloads"，并配置环境变量；
-"GPU_parallel/“硬件要求计算能力高于6.0的显卡，可参考"https://developer.nvidia.com/zh-cn/cuda-gpus#compute" 以了解是否符合计算能力要求。
+## Hardware and Environmental Requirements:
 
-程序使用：
-1. "CPU_serial/“
-"CPU_serial/“文件夹下仅有一个.cc脚本，SBP_MLEM.cc即为重建程序；
-SBP_MLEM.cc程序顶部为重建设置参数：
+1. "CPU_serial/" only depends on the standard C++ library and compiler, you can download mingw "https://sourceforge.net/projects/mingw/" on the windows side, and configure environment variables;<br>
+2. "GPU_parallel/" depends on CUDA and related environments, the Windows side can first install the MS 2022 Community Edition"https://visualstudio.microsoft.com/zh-hans/", then update the graphics card driver and install the appropriate version of CUDA Toolkit "https://developer.nvidia.com/cuda-downloads", and configure environment variables;
+3. "GPU_parallel/" hardware requires a graphics card with computing power higher than 6.0. You can refer to "https://developer.nvidia.com/zh-cn/cuda-gpus#compute" to see if it meets the computing power requirements.<br>
+
+## Program use:
+### "CPU_serial/"
+There is only one .cc script in the "CPU_serial/" folder, and SBP_MLEM.cc is the reconstruction program;<br>
+The top of the SBP_MLEM.cc program sets the parameters for the rebuild:<br>
+""" C++
 ------------------------------------------------------------------------------------------
 #define Electron_Mass 510.99       // keV
 #define Pi 3.14159              // circumference
@@ -42,6 +43,7 @@ SBP_MLEM.cc程序顶部为重建设置参数：
 #define MLEM 40
 #define MLEM_Display 4
 ------------------------------------------------------------------------------------------
+"""
 其中，前四行为常量，可不做更改；
 "Input_File"为输入文件的文件名，使用时需要放在本程序同一文件夹目录下；
 "dtheta"为直接反投影的角度展宽量，单位为弧度制；
