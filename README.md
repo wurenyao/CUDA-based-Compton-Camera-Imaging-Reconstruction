@@ -60,9 +60,9 @@ The top of the SBP_MLEM.cc program sets the parameters for the rebuild:<br>
 
 ### GPU_parallel/
 #### usage
-1. There are two folders "include" and "src" and a file "makefile" under the "GPU_parallel/" folder;  
-2. Among them, "include" contains the header files required for the reconstruction program, "src" contains the source files executed by the reconstruction program, and makefile is the compilation command file;  
-3. When using, modify the "src/main_function.cu" file as needed, same as SBP_MLEM.cc, the reconstruction parameters of this program are also located at the top of the program:
+There are two folders "include" and "src" and a file "makefile" under the "GPU_parallel/" folder;  
+Among them, "include" contains the header files required for the reconstruction program, "src" contains the source files executed by the reconstruction program, and makefile is the compilation command file;  
+When using, modify the "src/main_function.cu" file as needed, same as SBP_MLEM.cc, the reconstruction parameters of this program are also located at the top of the program:
 
 ```C
 ------------------------------------------------------------------------------------------
@@ -93,19 +93,17 @@ const int MLEM_Itr = 40;
 const int MLEM_Display = 4;
 ------------------------------------------------------------------------------------------
 ```
-
-由于CPU程序和GPU程序功能完全一致，因此重建参数含义与SBP_MLEM.cc相同，这里仅对两者不一样的地方进行解释：
-"Max_Ava_Video_Me"为计算机可用的最大显存大小，单位为MiB，可在计算机终端输入nvidia-smi指令查看当前计算机可用显存容量大小，使用时最好略小于可用显存大小；
-"Compton_Ang_Filter"为GPU程序添加功能，即选择是否进行散射角度筛选，筛选范围为0-120度；
-
-GPU程序的运行方式为：
-1.GPU程序的编译依赖于makefile的命令，makefile需要依据实际情况修改一处参数设置：
-
+1. Since the functions of the CPU program and the GPU program are exactly the same, the meaning of the reconstruction parameters is the same as that of SBP_MLEM.cc. Only the differences between the two are explained here;  
+2. "Max_Ava_Video_Me" is the maximum video memory size available to the computer, the unit is MiB, you can enter the nvidia-smi command in the computer terminal to check the current computer available video memory size, preferably slightly smaller than the available video memory size when using;
+3. "Compton_Ang_Filter" adds a function to the GPU program, that is, choose whether to filter the scattering angle, and the filter range is 0-120 degrees;  
+#### supplement
+The compilation of the GPU program depends on the command of the makefile. The makefile needs to modify a parameter setting according to the actual situation:
+```Shell
 NVFLAGS = -arch=compute_61 -code=sm_61
+```
+1. This example refers to the 1080 Ti graphics card (computing capability 6.1). In actual use, it needs to be set to: "NVFLAGS = -arch=compute_computing-capability*10 -code=sm_computing-capability*10";  
+2. After the makefile is modified, compile it in the "GPU_parallel/" directory, and the compile command is "make";  
+3. Execute the executable program.
+The inputs and outputs of the GPU program are the same as SBP_MLEM.cc.
 
-本实例参考1080 Ti显卡（计算能力 6.1），实际使用时需要设置为："NVFLAGS = -arch=compute_计算能力*10 -code=sm_计算能力*10"；
-2.makefile修改后，在"GPU_parallel/“目录下进行编译，编译命令为"make"；
-3.执行可执行程序。
-GPU程序的输入和输出与SBP_MLEM.cc相同。
-
-如有问题，请联系邬仁耀 qq:1243511701
+##If you have any questions, please contact Wu Renyao qq:1243511701
