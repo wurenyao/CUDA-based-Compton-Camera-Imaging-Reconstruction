@@ -109,3 +109,4 @@ The inputs and outputs of the GPU program are the same as SBP_MLEM.cc.
 ## If you have any questions, please contact Wu Renyao  
 qq: &ensp; &ensp;1243511701  
 email: wurenyao@nuaa.edu.cn
+We are developing a faster 3D reconstruction method for Compton cameras that will enable the pre-computation of LM-MLEM iterations based on a lightweight back-projection process. Subsequent additions will be made.
