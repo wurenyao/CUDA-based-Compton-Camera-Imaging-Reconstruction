@@ -5,6 +5,7 @@
 3. The program functions included in "CPU_serial/" and "GPU_parallel/" are the same as Compton camera image reconstruction, and there is no difference in the reconstruction results after testing.<br>
 4. "CPU_serial/" contains the program for the serial execution of the Compton camera reconstruction program on the CPU, including resolution-corrected pre-backprojection and LM-MLEM iterations;<br>
 5. "GPU_parallel/" contains the program for the Compton camera reconstruction program to be executed in parallel on the GPU. The pre-backprojection for resolution correction and the MLEM iteration process will all be executed in parallel.<br>
+6. The detailed and completed MLEM iterative process used in this project can be found in the work of Maxim et al.. doi: 10.1088/0031-9155/61/1/243
 
 ## Hardware and Environmental Requirements:
 
