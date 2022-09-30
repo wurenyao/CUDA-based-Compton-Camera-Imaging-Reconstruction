@@ -17,7 +17,7 @@
 ### CPU_serial/
 #### usage
 There is only one .cc script in the "CPU_serial/" folder, and SBP_MLEM.cc is the reconstruction program;<br>
-The top of the SBP_MLEM.cc program sets the parameters for the rebuild:<br>
+The top of the SBP_MLEM.cc program sets the parameters for the reconstruction:<br>
 ```C
 #define Electron_Mass 510.99       // keV
 #define Pi 3.14159              // circumference
