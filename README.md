@@ -9,8 +9,8 @@
 
 ## Hardware and Environmental Requirements:
 
-1. "CPU_serial/" only depends on the standard C++ library and compiler, you can download mingw "https://sourceforge.net/projects/mingw/" on the windows side, and configure environment variables;<br>
-2. "GPU_parallel/" depends on CUDA and related environments, the Windows side can first install the MS 2022 Community Edition"https://visualstudio.microsoft.com/zh-hans/", then update the graphics card driver and install the appropriate version of CUDA Toolkit "https://developer.nvidia.com/cuda-downloads", and configure environment variables;
+1. "CPU_serial/" only depends on the standard C++ library and compiler, users can download mingw "https://sourceforge.net/projects/mingw/" on the windows platform and configure environment variables or compile and run the program directly on the linux platform;<br>
+2. "GPU_parallel/" depends on CUDA and related environments, the Windows platform can first install the MS 2022 Community Edition"https://visualstudio.microsoft.com/zh-hans/", then update the graphics card driver and install the appropriate version of CUDA Toolkit "https://developer.nvidia.com/cuda-downloads", and configure environment variables;
 3. "GPU_parallel/" hardware requires a graphics card with computing power higher than 6.0. You can refer to "https://developer.nvidia.com/zh-cn/cuda-gpus#compute" to see if it meets the computing power requirements.<br>
 
 ## Program usage:
@@ -57,7 +57,7 @@ The top of the SBP_MLEM.cc program sets the parameters for the reconstruction:<b
 #### supplement
 1. The output of SBP_MLEM.cc is in the form of a matrix, which is written into a .txt file and can be visualized by "ThreeD_compton_image.m";  
 2. The reference input file format of SBP_MLEM.cc is x1 y1 z1 x2 y2 z3 e1 e2; where 1 is a scattering event and 2 is an absorption event;  
-3. The SBP_MLEM.cc program runs in standard C++ mode, compiling + running the executable.
+3. The SBP_MLEM.cc program runs in standard C++ mode.
 
 ### GPU_parallel/
 #### usage
@@ -102,7 +102,7 @@ The compilation of the GPU program depends on the command of the makefile. The m
 ```Shell
 NVFLAGS = -arch=compute_61 -code=sm_61
 ```
-1. This example refers to the 1080 Ti graphics card (computing capability 6.1). In actual use, it needs to be set to: "NVFLAGS = -arch=compute_computing-capability*10 -code=sm_computing-capability*10";  
+1. This example refers to the 1080 Ti graphics card (computing capability 6.1). In actual use, it needs to be set to: "NVFLAGS = -arch=compute_computing-capability×10 -code=sm_computing-capability×10";  
 2. After the makefile is modified, compile it in the "GPU_parallel/" directory, and the compile command is "make";  
 3. Execute the executable program.
 The inputs and outputs of the GPU program are the same as SBP_MLEM.cc.
